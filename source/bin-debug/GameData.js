@@ -12,7 +12,7 @@ var GameData = (function () {
         GameData.preparing = true;
         var request = new egret.HttpRequest();
         request.responseType = egret.HttpResponseType.TEXT;
-        request.open("http://www.lovigame.com/", egret.HttpMethod.GET);
+        request.open("http://www.lovigame.com/sig", egret.HttpMethod.GET);
         request.send();
         request.addEventListener(egret.Event.COMPLETE, GameData.onGetComplete, GameData);
         request.addEventListener(egret.IOErrorEvent.IO_ERROR, GameData.onGetIOError, GameData);
