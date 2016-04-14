@@ -41,27 +41,6 @@ var Main = (function (_super) {
         var content = "是时候给灰狼哥来一发了! 要来么？不要掉队哟~";
         var link = "http://www.lovigame.com/red/index.html";
         var ico = "http://www.lovigame.com/red/icons/10000062.jpg";
-        /*
-        var self = this;
-        var bodyConfig: BodyConfig = new BodyConfig();
-        bodyConfig.appId = "wx46695e88662ca446";
-        bodyConfig.debug = true;
-        /// ... 其他的配置属性赋值
-        /// 通过config接口注入权限验证配置
-        if(wx) {
-            wx.config(bodyConfig);
-            wx.ready(function() {
-                /// 在这里调用微信相关功能的 API
-                console.log("read");
-                self.onShareAPPMessage();
-            });
-            wx.error(function(res) {
-
-                // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
-                console.log(res);
-            });
-        }
-        */
         //if(window.hasOwnProperty("EgretShare"))
         //    EgretShare.setShareData(title, content, link, ico);
         //else
@@ -137,6 +116,7 @@ var Main = (function (_super) {
         this._scene.mask = maskRect;
         this.addChild(this._scene);
         GameData.prepareShare();
+        //this.share();
     };
     p.initAnimationData = function () {
         var arr = ["redNu", "promptPop", "lang", "go", "xiaohongmao", "daoju", "lieren", "huli", "bianfu", "niao"];
@@ -144,6 +124,56 @@ var Main = (function (_super) {
             var key = arr[i];
             StarlingSwfFactory.getInstance().addSwf(key, RES.getRes(key + "_swf"), RES.getRes(key));
         }
+    };
+    p.share = function () {
+        var self = this;
+        var bodyConfig = new BodyConfig();
+        bodyConfig.appId = "wx46695e88662ca446";
+        bodyConfig.debug = true;
+        bodyConfig.jsApiList = [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo'
+        ];
+        /// ... 其他的配置属性赋值
+        /// 通过config接口注入权限验证配置
+        if (wx) {
+            wx.config(bodyConfig);
+            wx.ready(function () {
+                /// 在这里调用微信相关功能的 API
+                console.log("read");
+                self.onShareAPPMessage();
+            });
+            wx.error(function (res) {
+                // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+                console.log(res);
+            });
+        }
+    };
+    p.onShareAPPMessage = function () {
+        var shareAppMessage = new BodyMenuShareAppMessage();
+        shareAppMessage.title = '发送给朋友';
+        shareAppMessage.desc = '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。';
+        shareAppMessage.link = 'http://www.lovigame.com/red';
+        shareAppMessage.imgUrl = 'http://demo.open.weixin.qq.com/jssdk/images/p2166127561.jpg';
+        console.log("app");
+        shareAppMessage.trigger = function (res) {
+            // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+            console.log('用户点击发送给朋友');
+        };
+        shareAppMessage.success = function (res) {
+            console.log('已分享');
+        };
+        shareAppMessage.fail = function (res) {
+            console.log('已取消');
+        };
+        shareAppMessage.cancel = function (res) {
+            console.log("cancel");
+            console.log(JSON.stringify(res));
+        };
+        wx.onMenuShareAppMessage(shareAppMessage);
     };
     return Main;
 }(egret.DisplayObjectContainer));

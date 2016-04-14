@@ -44,14 +44,14 @@ class GameData{
         }
         GameData.preparing = true;
         
-        
-        
+       
         var request = new egret.HttpRequest();
         request.responseType = egret.HttpResponseType.TEXT;
         request.open("http://www.lovigame.com/",egret.HttpMethod.GET);
         request.send();
         request.addEventListener(egret.Event.COMPLETE,GameData.onGetComplete,GameData);
         request.addEventListener(egret.IOErrorEvent.IO_ERROR,GameData.onGetIOError,GameData);
+        
     }
     
     private static onGetComplete(event:egret.Event):void{
@@ -62,7 +62,7 @@ class GameData{
         bodyConfig.appId = GameData.shareInfo.appId;
         bodyConfig.timestamp = GameData.shareInfo.timestamp;
         bodyConfig.nonceStr = GameData.shareInfo.nonceStr;
-        bodyConfig.signature = GameData.shareInfo.signature;
+        //bodyConfig.signature = GameData.shareInfo.signature;
         bodyConfig.debug = true;
         bodyConfig.jsApiList = [
             'checkJsApi',

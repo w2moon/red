@@ -18,20 +18,22 @@ class ShareUtils {
     }
 
     private static shareToWeChat():void {
-        //if(!window.hasOwnProperty("location")){
-        //    return;
-        //}
-        //if (WeixinApi) {
-        //    WeixinApi.ready(function (api:WeixinApi) {
-        //        var info:WeixinShareInfo = new WeixinShareInfo();
-        //        info.title = ShareUtils.shareTitle;
-        //        info.desc = ShareUtils.shareDesc;
-        //        info.link = window.location.href;
-        //        info.imgUrl = ShareUtils.IconPath;
-        //        api.shareToFriend(info);
+        if(!window.hasOwnProperty("location")){
+            return;
+        }
+        /*
+        if (WeixinApi) {
+            WeixinApi.ready(function (api:WeixinApi) {
+                var info:WeixinShareInfo = new WeixinShareInfo();
+                info.title = ShareUtils.shareTitle;
+                info.desc = ShareUtils.shareDesc;
+                info.link = window.location.href;
+                info.imgUrl = ShareUtils.IconPath;
+                api.shareToFriend(info);
         //        api.shareToTimeline(info);
-        //    });
-        //}
+            });
+        }
+        */
     }
     public static isSetSwfFrame():string{
         var i:number = 0;

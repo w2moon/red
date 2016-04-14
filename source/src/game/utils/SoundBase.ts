@@ -18,78 +18,81 @@ class SoundBase extends egret.DisplayObjectContainer{
     private _soundURL:string = "bgSound";
 
     private _soundChannel:egret.SoundChannel;
-    //默认播放位置，从头开始的
+    //默脠喜楼路脜位脰茫卢麓脫头驴陋始碌脛
     private _positon:number = 0;
-    //默认不循环，设置为负数循环
+    //默脠喜禄循禄路拢卢脡猫脰脙为赂潞脢媒循禄路
     private _loop:number = 1;
-    //当前状态0位空，1位播放，2位暂停, 3表示加载完成,4表示加载失败
+    //碌卤前状态0位驴眨卢1位虏楼路牛卢2位脭脻停, 3卤铆示录脫脭脴脥锚鲁脡,4卤铆示录脫脭脴失掳脺
     private _status:number = 0;
-    //加载音频
+    //录脫脭脴脪么频
     private _loadSound() {
+        /*
         if(RES.getRes(this._soundURL)){
             this._sound = RES.getRes(this._soundURL);
         }else{
-            //如果RES中未加载该资源，尝试绝对路径加载之。
+            //脠莽鹿没RES脰脨未录脫脭馗脙脳脢源拢卢鲁垄脢跃酶露脭路戮露录脫脭脴之隆拢
             this._sound.once(egret.Event.COMPLETE,this.loadComplete,this);
             this._sound.once(egret.IOErrorEvent.IO_ERROR,this.onLoadErr,this);
             this._sound.load(this._soundURL);
         }
+        */
     }
-    //加载音频完成
+    //录脫脭脴脪么频脥锚鲁脡
     private loadComplete (e:egret.Event) {
         this._status = 3;
-        var waring:string = "加载完成";
+        var waring:string = "录脫脭脴脥锚鲁脡";
         egret.log(waring);
-        //删除加载失败的监听
+        //删鲁媒录脫脭脴失掳艿募脿脤媒
         this._sound.removeEventListener(egret.IOErrorEvent.IO_ERROR,this.onLoadErr,this)
         this.dispatchEventWith(egret.Event.COMPLETE,false,waring);
     }
-    //加载音频失败
+    //录脫脭脴脪么频失掳脺
     private onLoadErr (e:egret.IOErrorEvent) {
         this._status = 4;
-        var waring:string = "加载失败"+this._soundURL;
+        var waring:string = "录脫脭脴失掳脺"+this._soundURL;
         egret.log(waring);
-        //删除加载成功的监听
+        //删鲁媒录脫脭爻晒娄碌募脿脤媒
         this._sound.removeEventListener(egret.Event.COMPLETE,this.loadComplete,this);
         this.dispatchEventWith(egret.IOErrorEvent.IO_ERROR,false,waring);
     }
-    //设置url并重新加载
+    //脡猫脰脙url虏垄脰脴脨录脫脭脴
     public setUrl(url:string) {
         this._soundURL = url;
         this._loadSound();
     }
-    //设置循环
+    //脡猫脰脙循禄路
     private looped(e:egret.Event){
         console.log("looped");
         this._soundChannel = null;
         this._positon = 0;
         this._status = 0;
-        var waring: string = "播放完成";
+        var waring: string = "虏楼路脜脥锚鲁脡";
         if(this._loop >= 0) {
             this.dispatchEventWith(egret.Event.SOUND_COMPLETE,false,waring);
         } else {
             this.play();
         }
     }
-    //获取状态
+    //禄帽取状态
     public getStatus() {
         return this._status;
     }
-    //设置音量
+    //脡猫脰脙脪么脕驴
     public setVolume (volume:number) {
         console.log(this._status);
         if(1 === this._status)
             this._soundChannel.volume = volume / 100;
     }
-    //显示播放时间
+    //脧脭示虏楼路脜时录盲
     public showPosition ():number {
 
         if(1 === this._status)
             this._positon = this._soundChannel.position;
         return this._positon;
     }
-    //播放音频
+    //虏楼路脜脪么频
     public play() {
+        return;
         if(4 === this._status){
             this._loadSound();
             return;
@@ -104,13 +107,13 @@ class SoundBase extends egret.DisplayObjectContainer{
 
         return this._status;
     }
-    //设置循环
+    //脡猫脰脙循禄路
     public setLoop(loop:number = 1):number{
         this._loop = loop;
 
         return loop;
     }
-    //设置暂停
+    //脡猫脰脙脭脻停
     public pause () {
         var temp = this._status;
         if(1 === temp){
@@ -121,7 +124,7 @@ class SoundBase extends egret.DisplayObjectContainer{
         egret.log(this._positon);
         return temp;
     }
-    //恢复
+    //禄指麓
     public resume () {
         var temp = this._status;
         if(2 === temp) {

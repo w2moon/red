@@ -6,11 +6,11 @@ var SoundBase = (function (_super) {
     function SoundBase(url) {
         _super.call(this);
         this._soundURL = "bgSound";
-        //Ĭ�ϲ���λ�ã���ͷ��ʼ��
+        //ĬÈϲ¥·ÅλÖã¬´Óͷ¿ªʼµÄ
         this._positon = 0;
-        //Ĭ�ϲ�ѭ��������Ϊ����ѭ��
+        //ĬÈϲ»ѭ»·£¬ÉèÖÃΪ¸ºÊýѭ»·
         this._loop = 1;
-        //��ǰ״̬0λ�գ�1λ���ţ�2λ��ͣ, 3��ʾ��������,4��ʾ����ʧ��
+        //µ±ǰ״̬0λ¿գ¬1λ²¥·ţ¬2λÔÝͣ, 3±íʾ¼ÓÔØÍê³É,4±íʾ¼ÓÔØʧ°Ü
         this._status = 0;
         if (url)
             this._soundURL = url;
@@ -18,48 +18,49 @@ var SoundBase = (function (_super) {
         this._loadSound();
     }
     var d = __define,c=SoundBase,p=c.prototype;
-    //������Ƶ
+    //¼ÓÔØÒôƵ
     p._loadSound = function () {
-        if (RES.getRes(this._soundURL)) {
+        /*
+        if(RES.getRes(this._soundURL)){
             this._sound = RES.getRes(this._soundURL);
-        }
-        else {
-            //����RES��δ���ظ���Դ�����Ծ���·������֮��
-            this._sound.once(egret.Event.COMPLETE, this.loadComplete, this);
-            this._sound.once(egret.IOErrorEvent.IO_ERROR, this.onLoadErr, this);
+        }else{
+            //Èç¹ûRESÖÐδ¼ÓÔظÃ×ÊԴ£¬³¢ÊԾø¶Ô·¾¶¼ÓÔØ֮¡£
+            this._sound.once(egret.Event.COMPLETE,this.loadComplete,this);
+            this._sound.once(egret.IOErrorEvent.IO_ERROR,this.onLoadErr,this);
             this._sound.load(this._soundURL);
         }
+        */
     };
-    //������Ƶ����
+    //¼ÓÔØÒôƵÍê³É
     p.loadComplete = function (e) {
         this._status = 3;
-        var waring = "��������";
+        var waring = "¼ÓÔØÍê³É";
         egret.log(waring);
-        //ɾ������ʧ�ܵļ���
+        //ɾ³ý¼ÓÔØʧ°ܵļàÌý
         this._sound.removeEventListener(egret.IOErrorEvent.IO_ERROR, this.onLoadErr, this);
         this.dispatchEventWith(egret.Event.COMPLETE, false, waring);
     };
-    //������Ƶʧ��
+    //¼ÓÔØÒôƵʧ°Ü
     p.onLoadErr = function (e) {
         this._status = 4;
-        var waring = "����ʧ��" + this._soundURL;
+        var waring = "¼ÓÔØʧ°Ü" + this._soundURL;
         egret.log(waring);
-        //ɾ�����سɹ��ļ���
+        //ɾ³ý¼ÓÔسɹ¦µļàÌý
         this._sound.removeEventListener(egret.Event.COMPLETE, this.loadComplete, this);
         this.dispatchEventWith(egret.IOErrorEvent.IO_ERROR, false, waring);
     };
-    //����url�����¼���
+    //ÉèÖÃurl²¢ÖØÐ¼ÓÔØ
     p.setUrl = function (url) {
         this._soundURL = url;
         this._loadSound();
     };
-    //����ѭ��
+    //ÉèÖÃѭ»·
     p.looped = function (e) {
         console.log("looped");
         this._soundChannel = null;
         this._positon = 0;
         this._status = 0;
-        var waring = "��������";
+        var waring = "²¥·ÅÍê³É";
         if (this._loop >= 0) {
             this.dispatchEventWith(egret.Event.SOUND_COMPLETE, false, waring);
         }
@@ -67,24 +68,25 @@ var SoundBase = (function (_super) {
             this.play();
         }
     };
-    //��ȡ״̬
+    //»ñȡ״̬
     p.getStatus = function () {
         return this._status;
     };
-    //��������
+    //ÉèÖÃÒôÁ¿
     p.setVolume = function (volume) {
         console.log(this._status);
         if (1 === this._status)
             this._soundChannel.volume = volume / 100;
     };
-    //��ʾ����ʱ��
+    //ÏÔʾ²¥·Åʱ¼ä
     p.showPosition = function () {
         if (1 === this._status)
             this._positon = this._soundChannel.position;
         return this._positon;
     };
-    //������Ƶ
+    //²¥·ÅÒôƵ
     p.play = function () {
+        return;
         if (4 === this._status) {
             this._loadSound();
             return;
@@ -96,13 +98,13 @@ var SoundBase = (function (_super) {
         this._soundChannel.once(egret.Event.SOUND_COMPLETE, this.looped, this);
         return this._status;
     };
-    //����ѭ��
+    //ÉèÖÃѭ»·
     p.setLoop = function (loop) {
         if (loop === void 0) { loop = 1; }
         this._loop = loop;
         return loop;
     };
-    //������ͣ
+    //ÉèÖÃÔÝͣ
     p.pause = function () {
         var temp = this._status;
         if (1 === temp) {
@@ -113,7 +115,7 @@ var SoundBase = (function (_super) {
         egret.log(this._positon);
         return temp;
     };
-    //�ָ�
+    //»ָ´
     p.resume = function () {
         var temp = this._status;
         if (2 === temp) {

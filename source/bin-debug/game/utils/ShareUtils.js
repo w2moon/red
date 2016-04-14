@@ -15,20 +15,22 @@ var ShareUtils = (function () {
         }
     };
     ShareUtils.shareToWeChat = function () {
-        //if(!window.hasOwnProperty("location")){
-        //    return;
-        //}
-        //if (WeixinApi) {
-        //    WeixinApi.ready(function (api:WeixinApi) {
-        //        var info:WeixinShareInfo = new WeixinShareInfo();
-        //        info.title = ShareUtils.shareTitle;
-        //        info.desc = ShareUtils.shareDesc;
-        //        info.link = window.location.href;
-        //        info.imgUrl = ShareUtils.IconPath;
-        //        api.shareToFriend(info);
+        if (!window.hasOwnProperty("location")) {
+            return;
+        }
+        /*
+        if (WeixinApi) {
+            WeixinApi.ready(function (api:WeixinApi) {
+                var info:WeixinShareInfo = new WeixinShareInfo();
+                info.title = ShareUtils.shareTitle;
+                info.desc = ShareUtils.shareDesc;
+                info.link = window.location.href;
+                info.imgUrl = ShareUtils.IconPath;
+                api.shareToFriend(info);
         //        api.shareToTimeline(info);
-        //    });
-        //}
+            });
+        }
+        */
     };
     ShareUtils.isSetSwfFrame = function () {
         var i = 0;
