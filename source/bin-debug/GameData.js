@@ -56,10 +56,10 @@ var GameData = (function () {
     };
     GameData.onShareAPPMessage = function () {
         var shareAppMessage = new BodyMenuShareAppMessage();
-        shareAppMessage.title = '分享给好友';
-        shareAppMessage.desc = '获得历史最高分，获得100元优惠券一张。点击领取。';
+        shareAppMessage.title = '历史最高分';
+        shareAppMessage.desc = '你获得历史最高分，得到奖励100元优惠券一张。点击领取。';
         shareAppMessage.link = 'http://www.baidu.com/';
-        shareAppMessage.imgUrl = 'http://demo.open.weixin.qq.com/jssdk/images/p2166127561.jpg';
+        shareAppMessage.imgUrl = 'http://freshbody.lovigame.com/images/logo2.png';
         console.log("app");
         shareAppMessage.trigger = function (res) {
             // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
