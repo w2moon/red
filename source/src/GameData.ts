@@ -62,7 +62,7 @@ class GameData{
         bodyConfig.appId = GameData.shareInfo.appId;
         bodyConfig.timestamp = GameData.shareInfo.timestamp;
         bodyConfig.nonceStr = GameData.shareInfo.nonceStr;
-        //bodyConfig.signature = GameData.shareInfo.signature;
+        bodyConfig.signature = GameData.shareInfo.signature;
         bodyConfig.debug = true;
         bodyConfig.jsApiList = [
             'checkJsApi',
