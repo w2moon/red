@@ -13,7 +13,7 @@ template.config('extname','.html');
 app.engine('.html',template.__express);
 app.set('view engine','html');
 app.use(bodyParser.urlencoded({extended:false}));
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '/source')));
 
 //app.get('/red',function(req,res){
     //res.render('../public/index.html');
