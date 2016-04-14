@@ -101,7 +101,7 @@ class GameData{
         var shareAppMessage = new BodyMenuShareAppMessage();
         shareAppMessage.title = '历史最高分';
         shareAppMessage.desc = '你获得历史最高分，得到奖励100元优惠券一张。点击领取。';
-        shareAppMessage.link = 'http://www.baidu.com/';
+        shareAppMessage.link = 'http://www.lovigame.com';
         shareAppMessage.imgUrl = 'http://freshbody.lovigame.com/images/logo2.png';
         console.log("app");
         shareAppMessage.trigger = function(res) {
